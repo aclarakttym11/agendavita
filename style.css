@@ -1,0 +1,608 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    overflow-x: hidden;
+    background: #0f172a;
+}
+
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at top left, #2563eb, transparent 30%),
+        radial-gradient(circle at bottom right, #06b6d4, transparent 30%),
+        #0f172a;
+    z-index: -1;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.auth-container {
+    max-width: 450px;
+}
+
+.main-container {
+    max-width: 900px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.header-info {
+    flex: 1;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+}
+
+.header h1 {
+    color: white;
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.header p {
+    color: #cbd5e1;
+    margin-top: 5px;
+}
+
+#userName {
+    color: white;
+    font-weight: 500;
+}
+
+.role-badge {
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.role-badge.admin {
+    background: #f59e0b;
+    color: white;
+}
+
+.role-badge.cliente {
+    background: #22c55e;
+    color: white;
+}
+
+.logout-btn {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+/* Auth Tabs */
+.auth-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-tab.active {
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    color: white;
+}
+
+.auth-tab:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Role Selector */
+.role-selector {
+    display: flex;
+    gap: 12px;
+}
+
+.role-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.role-option input[type="radio"] {
+    display: none;
+}
+
+.role-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+}
+
+.role-option input[type="radio"]:checked + .role-label {
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    color: white;
+    border-color: transparent;
+}
+
+.role-option:hover .role-label {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.role-option input[type="radio"]:checked + .role-label:hover {
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+}
+
+/* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auth-form.hidden {
+    display: none;
+}
+
+.form-title {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    color: #f8fafc;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    outline: none;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 15px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #94a3b8;
+}
+
+select {
+    cursor: pointer;
+}
+
+select option {
+    background: #1e293b;
+    color: white;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border: 1px solid #38bdf8;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
+}
+
+textarea {
+    min-height: 110px;
+    resize: none;
+}
+
+.readonly-input {
+    background: rgba(255, 255, 255, 0.03) !important;
+    cursor: not-allowed;
+    color: #94a3b8 !important;
+}
+
+button {
+    border: none;
+    padding: 18px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 35px 0;
+}
+
+.title-lista {
+    color: white;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#consultas {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.consulta {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 22px;
+    border-radius: 18px;
+    color: white;
+    transition: 0.3s;
+}
+
+.consulta:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.consulta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.consulta h3 {
+    font-size: 20px;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge.agendada {
+    background: #3b82f6;
+    color: white;
+}
+
+.badge.concluida {
+    background: #22c55e;
+    color: white;
+}
+
+.badge.cancelada {
+    background: #ef4444;
+    color: white;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.info p {
+    color: #cbd5e1;
+}
+
+.consulta-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.status-btn {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 12px;
+    font-size: 14px;
+}
+
+.status-btn:hover {
+    background: rgba(59, 130, 246, 0.3);
+}
+
+.delete-btn {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 12px;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+.empty-message,
+.error-message {
+    color: #94a3b8;
+    text-align: center;
+    padding: 40px;
+    font-style: italic;
+}
+
+.error-message {
+    color: #ef4444;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Dentista Info */
+.dentista-info {
+    margin-top: 8px;
+}
+
+.especialidade-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.especialidade-badge-small {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    margin-left: 8px;
+}
+
+/* Dashboard de Dentistas */
+.date-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+.date-selector label {
+    color: #f8fafc;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.date-selector input {
+    padding: 10px 16px;
+    width: auto;
+}
+
+#pacientesDoDia {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.paciente-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 20px;
+    border-radius: 16px;
+    color: white;
+    transition: 0.3s;
+}
+
+.paciente-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.paciente-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.paciente-header h3 {
+    font-size: 18px;
+}
+
+.paciente-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.paciente-info p {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+/* Disponibilidade Cards */
+#listaDisponibilidade {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.disponibilidade-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 16px;
+    border-radius: 14px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.disponibilidade-card:hover {
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.disponibilidade-info {
+    display: flex;
+    gap: 20px;
+}
+
+.disponibilidade-info p {
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.disponibilidade-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-btn {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #60a5fa;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.edit-btn:hover {
+    background: rgba(59, 130, 246, 0.3);
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 20px;
+    }
+
+    .container {
+        padding: 25px;
+    }
+
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .user-info {
+        flex-direction: column;
+        margin-top: 15px;
+    }
+
+    .info {
+        grid-template-columns: 1fr;
+    }
+
+    .consulta-actions {
+        grid-template-columns: 1fr;
+    }
+}

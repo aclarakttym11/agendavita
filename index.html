@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgendaVita - Clínica Odontológica</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <!-- Tela de Login/Registro -->
+    <div id="authScreen" class="container auth-container">
+        <div class="header">
+            <div class="logo">
+                <i class="fa-solid fa-tooth"></i>
+            </div>
+            <div>
+                <h1>AgendaVita</h1>
+                <p>Clínica Odontológica</p>
+            </div>
+        </div>
+
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Login</button>
+            <button class="auth-tab" data-tab="register">Registro</button>
+        </div>
+
+        <!-- Form de Login -->
+        <form id="loginForm" class="auth-form">
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+            </div>
+            <div class="input-group">
+                <label>Senha</label>
+                <input type="password" id="loginSenha" placeholder="Digite sua senha" required>
+            </div>
+            <button type="submit">
+                <i class="fa-solid fa-sign-in-alt"></i>
+                Entrar
+            </button>
+        </form>
+
+        <!-- Form de Registro -->
+        <form id="registerForm" class="auth-form hidden">
+            <div class="input-group">
+                <label>Nome Completo</label>
+                <input type="text" id="registerNome" placeholder="Seu nome completo" required>
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="registerEmail" placeholder="seu@email.com" required>
+            </div>
+            <div class="input-group">
+                <label>Telefone</label>
+                <input type="tel" id="registerTelefone" placeholder="(11) 99999-9999" required>
+            </div>
+            <div class="input-group">
+                <label>Senha</label>
+                <input type="password" id="registerSenha" placeholder="Mínimo 6 caracteres" required>
+            </div>
+            <div class="input-group">
+                <label>Tipo de Usuário</label>
+                <div class="role-selector">
+                    <label class="role-option">
+                        <input type="radio" name="role" value="cliente" checked>
+                        <span class="role-label">
+                            <i class="fa-solid fa-user"></i>
+                            Paciente
+                        </span>
+                    </label>
+                    <label class="role-option">
+                        <input type="radio" name="role" value="admin">
+                        <span class="role-label">
+                            <i class="fa-solid fa-user-shield"></i>
+                            Administrador
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit">
+                <i class="fa-solid fa-user-plus"></i>
+                Cadastrar
+            </button>
+        </form>
+    </div>
+
+    <!-- Tela Principal -->
+    <div id="mainScreen" class="container main-container hidden">
+        <div class="header">
+            <div class="logo">
+                <i class="fa-solid fa-tooth"></i>
+            </div>
+            <div class="header-info">
+                <h1>AgendaVita</h1>
+                <p>Clínica Odontológica</p>
+            </div>
+            <div class="user-info">
+                <span id="userName"></span>
+                <span id="userRole" class="role-badge"></span>
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fa-solid fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <form id="consultaForm" novalidate>
+            <h2 class="form-title">Agendar Nova Consulta</h2>
+
+            <div class="input-group" id="pacienteGroup">
+                <label>Paciente</label>
+                <input type="text" id="pacienteNome" readonly class="readonly-input">
+            </div>
+
+            <div class="input-group hidden" id="pacienteSelectGroup">
+                <label>Selecione o Paciente</label>
+                <select id="pacienteSelect" name="pacienteSelect" required>
+                    <option value="">Selecione o paciente</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Dentista</label>
+                <select id="dentista" name="dentista" required>
+                    <option value="">Selecione o dentista</option>
+                </select>
+                <div id="dentistaInfo" class="dentista-info"></div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label>Data</label>
+                    <input type="date" id="data" name="data" required>
+                </div>
+                <div class="input-group">
+                    <label>Horário</label>
+                    <input type="time" id="horario" name="horario" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Tipo de Consulta</label>
+                <select id="tipoConsulta" name="tipoConsulta" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="limpeza">Limpeza</option>
+                    <option value="restauracao">Restauração</option>
+                    <option value="extracao">Extração</option>
+                    <option value="canal">Tratamento de Canal</option>
+                    <option value="ortodontia">Ortodontia</option>
+                    <option value="implante">Implante</option>
+                    <option value="avaliacao">Avaliação</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Observações</label>
+                <textarea id="observacoes" placeholder="Informações adicionais (opcional)"></textarea>
+            </div>
+
+            <button type="submit">
+                <i class="fa-solid fa-calendar-check"></i>
+                Agendar Consulta
+            </button>
+        </form>
+
+        <div class="divider"></div>
+
+        <!-- Dashboard para dentistas -->
+        <div id="dentistaDashboard" class="hidden">
+            <h2 class="title-lista">
+                <i class="fa-solid fa-calendar-day"></i>
+                Pacientes do Dia
+            </h2>
+            <div class="date-selector">
+                <label for="dataDashboard">Selecione a data:</label>
+                <input type="date" id="dataDashboard">
+            </div>
+            <div id="pacientesDoDia"></div>
+        </div>
+
+        <!-- Agenda Semanal para dentistas e admins -->
+        <div id="agendaSemanal" class="hidden">
+            <h2 class="title-lista">
+                <i class="fa-solid fa-calendar-week"></i>
+                Agenda da Semana
+            </h2>
+            <div class="date-selector">
+                <label for="dataInicioSemana">Data Início:</label>
+                <input type="date" id="dataInicioSemana">
+                <label for="dataFimSemana">Data Fim:</label>
+                <input type="date" id="dataFimSemana">
+                <button type="button" id="btnCarregarSemana">
+                    <i class="fa-solid fa-search"></i> Buscar
+                </button>
+            </div>
+            <div id="consultasSemana"></div>
+        </div>
+
+        <!-- Gerenciar Disponibilidade para dentistas -->
+        <div id="disponibilidadeSection" class="hidden">
+            <h2 class="title-lista">
+                <i class="fa-solid fa-clock"></i>
+                Gerenciar Disponibilidade
+            </h2>
+            <form id="disponibilidadeForm">
+                <div class="input-group">
+                    <label>Dia da Semana</label>
+                    <select id="diaSemana" required>
+                        <option value="">Selecione o dia</option>
+                        <option value="0">Domingo</option>
+                        <option value="1">Segunda-feira</option>
+                        <option value="2">Terça-feira</option>
+                        <option value="3">Quarta-feira</option>
+                        <option value="4">Quinta-feira</option>
+                        <option value="5">Sexta-feira</option>
+                        <option value="6">Sábado</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <label>Horário Início</label>
+                        <input type="time" id="horarioInicio" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Horário Fim</label>
+                        <input type="time" id="horarioFim" required>
+                    </div>
+                </div>
+                <button type="submit">
+                    <i class="fa-solid fa-plus"></i>
+                    Adicionar Disponibilidade
+                </button>
+            </form>
+            <div class="divider"></div>
+            <div id="listaDisponibilidade"></div>
+        </div>
+
+        <!-- Gerenciar Disponibilidade para admin -->
+        <div id="adminDisponibilidadeSection" class="hidden">
+            <h2 class="title-lista">
+                <i class="fa-solid fa-clock"></i>
+                Gerenciar Disponibilidade dos Dentistas
+            </h2>
+            <form id="adminDisponibilidadeForm">
+                <div class="input-group">
+                    <label>Dentista</label>
+                    <select id="adminDentistaSelect" required>
+                        <option value="">Selecione o dentista</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Dia da Semana</label>
+                    <select id="adminDiaSemana" required>
+                        <option value="">Selecione o dia</option>
+                        <option value="0">Domingo</option>
+                        <option value="1">Segunda-feira</option>
+                        <option value="2">Terça-feira</option>
+                        <option value="3">Quarta-feira</option>
+                        <option value="4">Quinta-feira</option>
+                        <option value="5">Sexta-feira</option>
+                        <option value="6">Sábado</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <label>Horário Início</label>
+                        <input type="time" id="adminHorarioInicio" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Horário Fim</label>
+                        <input type="time" id="adminHorarioFim" required>
+                    </div>
+                </div>
+                <button type="submit">
+                    <i class="fa-solid fa-plus"></i>
+                    Adicionar Disponibilidade
+                </button>
+            </form>
+            <div class="divider"></div>
+            <div id="listaDisponibilidadeAdmin"></div>
+        </div>
+
+        <!-- Visualizar Disponibilidade para clientes -->
+        <div id="clienteDisponibilidadeSection" class="hidden">
+            <h2 class="title-lista">
+                <i class="fa-solid fa-clock"></i>
+                Disponibilidade dos Dentistas
+            </h2>
+            <div id="listaDisponibilidadeCliente"></div>
+        </div>
+
+        <div>
+            <h2 class="title-lista">
+                <i class="fa-solid fa-list"></i>
+                Consultas Agendadas
+            </h2>
+            <div id="consultas"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
